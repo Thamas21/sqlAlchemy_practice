@@ -26,6 +26,3 @@ class Book(Base):
 # books.db
 # create model
 # title, author, date_published, price
-
-
-
