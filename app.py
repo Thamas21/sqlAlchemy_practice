@@ -3,6 +3,10 @@ from models import (Base, session,
 import datetime
 import csv
 import time
+# search, analysis,
+# edit function
+# delete_books function
+# search_books
 
 
 def menu():
@@ -25,20 +29,9 @@ def menu():
                 \rPress enter to continue. ''')
 
 
-
-
-
-# main menu, add, search, analysis, exit, view
-# add_book function
-# edit function
-# delete_books function
-# search_books
-# data_clean
-
-
 def clean_date(date_str):
     months = ['January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December']
+              'July', 'August', 'September', 'October', 'November', 'December']
 
     split_date = date_str.split(' ')
     try:
@@ -46,25 +39,23 @@ def clean_date(date_str):
         day = int(split_date[1].split(',')[0])
         year = int(split_date[2])
         return_date = datetime.date(year, month, day)
-    except ValueError as err:
+    except ValueError:
         input('''
             \n***  DATE ERROR *** 
-            \rThe date format should include a valid Month Date, Year from the past
-            \r Januarly 13, 2003
+            \rThe date format should include a valid Month, Date, Year from the past
+            \r Ex: Januarly 13, 2003
             \r Press enter to try again
             \r *****************''')
         return
     else:
         return return_date
-   
-     
 
 
 def clean_price(price_str):
     try:
         price_float = float(price_str)
 
-    except ValueError as identifier:
+    except ValueError:
         input('''
             \n***  Price Error *** 
             \rThe price format should include a number without a currency symbol
@@ -95,7 +86,6 @@ def app():
     while app_running:
         choice = menu()
         if choice == '1':
-            # add book
             title = input('Title: ')
             authtor = input('Author: ')
             date_error = True
@@ -114,10 +104,16 @@ def app():
             session.add(new_book)
             session.commit()
             print("The book was added!")
-            time.sleep(1.5)
+            time.sleep(2)
+
         elif choice == '2':
             # view all
-            pass
+            for book in session.query(Book):
+                print(f'''\n{book.id}:
+                        \rTitle: {book.title}
+                        \rAuthor: {book.author}
+                        ''')
+            input('Press enter to return to the main menu')
         elif choice == '3':
             # Search for a book
             pass
