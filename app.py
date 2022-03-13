@@ -234,7 +234,7 @@ def app():
 if __name__ == '__main__':
     Base.metadata.create_all(engine)
     add_csv()
-    for row in session.query(Book):
-        print(row)
-    #app()
+    # for row in session.query(Book):
+    #     print(row)
+    app()
     # print(clean_price('28.84'))
